@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="ProgrammeProcessorServerPU" transaction-type="JTA">
+    <jta-data-source>stcav_connection_local</jta-data-source>
+    <class>org.university.stcav.persistence.entity.Chat</class>
+    <class>org.university.stcav.persistence.entity.ComentarioTablon</class>
+    <class>org.university.stcav.persistence.entity.Comunidad</class>
+    <class>org.university.stcav.persistence.entity.ComunidadhasContenido</class>
+    <class>org.university.stcav.persistence.entity.ComunidadhasEtiquetas</class>
+    <class>org.university.stcav.persistence.entity.Contenido</class>
+    <class>org.university.stcav.persistence.entity.ContenidohasEtiquetas</class>
+    <class>org.university.stcav.persistence.entity.Etiquetas</class>
+    <class>org.university.stcav.persistence.entity.Evento</class>
+    <class>org.university.stcav.persistence.entity.InfoAsociada</class>
+    <class>org.university.stcav.persistence.entity.Intereses</class>
+    <class>org.university.stcav.persistence.entity.IntereseshasUsuario</class>
+    <class>org.university.stcav.persistence.entity.Noticia</class>
+    <class>org.university.stcav.persistence.entity.Notificado</class>
+    <class>org.university.stcav.persistence.entity.PreferenciasProgramas</class>
+    <class>org.university.stcav.persistence.entity.Profesion</class>
+    <class>org.university.stcav.persistence.entity.Programa</class>
+    <class>org.university.stcav.persistence.entity.Tablon</class>
+    <class>org.university.stcav.persistence.entity.TipoNoticia</class>
+    <class>org.university.stcav.persistence.entity.Usuario</class>
+    <class>org.university.stcav.persistence.entity.UsuariohasComunidad</class>
+    <class>org.university.stcav.persistence.entity.UsuariohasProfesion</class>
+    <class>org.university.stcav.persistence.entity.Valoracion</class>
+    <class>org.university.stcav.persistence.entity.Votacion</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties/>
+  </persistence-unit>
+</persistence>
