@@ -69,7 +69,7 @@ public class EventProcessorServlet extends HttpServlet {
             case 6:// Cambiando el duracion del evento el evento
                 jsonResponse = modifyDurationEventById(Long.parseLong(request.getParameter("id")), Double.parseDouble(request.getParameter("duracion")));
                 break;
-            case 7:// Cambiando el duracion del evento el evento
+            case 7:// Obteniendo evento por id
                 jsonResponse = getEventById(Long.parseLong(request.getParameter("id")));
                 break;
             case 8:// Reeferencia de edicion de evento
