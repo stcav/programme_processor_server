@@ -17,6 +17,6 @@ public class Layout {
     public static String STACKVIDEOPROCESSOR="stackvideoprocessor";
     
     public static String PATHMBEANDESCRIPTOR= MAINPATH+"gestv/InstrumentFolder/";
-    public static String PROGRAMMEPROCESSORSERVER = "ContentProcessorServer";
+    public static String PROGRAMMEPROCESSORSERVER = "ProgrammeProcessorServer";
 
 }
