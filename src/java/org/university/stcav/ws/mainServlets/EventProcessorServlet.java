@@ -10,12 +10,22 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.management.AttributeNotFoundException;
+import javax.management.InstanceNotFoundException;
+import javax.management.MBeanException;
+import javax.management.MalformedObjectNameException;
+import javax.management.ReflectionException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.unicauca.stcav.jmx.ManagementAttributeParser;
+import org.unicauca.stcav.jmx.mbean.MBeanServerController;
+import org.unicauca.stcav.jmx.model.TimeOfLife;
 import org.university.stcav.model.Descriptor;
 import org.university.stcav.model.Element;
 import org.university.stcav.model.Layout;
@@ -40,13 +50,27 @@ public class EventProcessorServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, MBeanException, AttributeNotFoundException, InstanceNotFoundException, ReflectionException, MalformedObjectNameException {
+        //adding support to quantify time of response (for managment skill support)
+        TimeOfLife tol = new TimeOfLife();
+        tol.set_home_time();
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(-1);
         response.setContentType("text/html;charset=iso-8859-1");
         
 
         String jsonResponse = null;
+        int conteo=0;
+        String managementRecord="";
+        int macroattributeID = 0;
+        int attributeID = 0;
+        
+        if (request.getParameter("management_record")!=null){
+            managementRecord= request.getParameter("management_record");
+            attributeID = Integer.parseInt(managementRecord);
+            macroattributeID = Integer.parseInt(String.valueOf(managementRecord.charAt(0)));
+        }
+        
         switch (Integer.parseInt(request.getParameter("operation"))) {
             case 0:// Eventos del programa
                 jsonResponse = getEventsByIdPrg((Long) session.getAttribute("idPrg"));
@@ -90,6 +114,19 @@ public class EventProcessorServlet extends HttpServlet {
         try {
             out.println(jsonResponse);
         } finally {
+            //set to response endtime  
+            tol.set_end_time();
+            if(!managementRecord.equals("") && request.getParameter("ignore_metric") == null){
+                System.out.println("--> saving metric");
+                ManagementAttributeParser map = ManagementAttributeParser.getInstance();
+                // Setting the counts and time attributes changed of associated MBeanAttributeInfo
+                // Attribute Counts
+                conteo = (Integer) MBeanServerController.getAttribute(Layout.JMXDOMAIN, Layout.PROGRAMMEPROCESSORSERVER, map.getManagementAttributeName(macroattributeID), map.getManagementAttributeName(attributeID)+"Counts");
+                System.out.println("--> "+conteo);
+                MBeanServerController.changeAttribute(Layout.JMXDOMAIN, Layout.PROGRAMMEPROCESSORSERVER, map.getManagementAttributeName(macroattributeID), map.getManagementAttributeName(attributeID)+"Counts", String.valueOf(conteo+1));
+                // Attribute Time
+                MBeanServerController.changeAttribute(Layout.JMXDOMAIN, Layout.PROGRAMMEPROCESSORSERVER, map.getManagementAttributeName(macroattributeID), map.getManagementAttributeName(attributeID)+"Time", String.valueOf(tol.get_tot_()));    
+            }
             out.close();
         }
     }
@@ -105,7 +142,19 @@ public class EventProcessorServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (MBeanException ex) {
+            Logger.getLogger(EventProcessorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (AttributeNotFoundException ex) {
+            Logger.getLogger(EventProcessorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstanceNotFoundException ex) {
+            Logger.getLogger(EventProcessorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ReflectionException ex) {
+            Logger.getLogger(EventProcessorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MalformedObjectNameException ex) {
+            Logger.getLogger(EventProcessorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -118,7 +167,19 @@ public class EventProcessorServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (MBeanException ex) {
+            Logger.getLogger(EventProcessorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (AttributeNotFoundException ex) {
+            Logger.getLogger(EventProcessorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstanceNotFoundException ex) {
+            Logger.getLogger(EventProcessorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ReflectionException ex) {
+            Logger.getLogger(EventProcessorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MalformedObjectNameException ex) {
+            Logger.getLogger(EventProcessorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
