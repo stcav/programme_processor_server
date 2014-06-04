@@ -16,6 +16,7 @@ public class Layout {
     public static String PATHSTACKVIDEOPROCESSOR="/home/stcav/stcav/";
     public static String STACKVIDEOPROCESSOR="stackvideoprocessor";
     
+    public static String JMXDOMAIN = "MediaServer";
     public static String PATHMBEANDESCRIPTOR= MAINPATH+"gestv/InstrumentFolder/";
     public static String PROGRAMMEPROCESSORSERVER = "ProgrammeProcessorServer";
 
