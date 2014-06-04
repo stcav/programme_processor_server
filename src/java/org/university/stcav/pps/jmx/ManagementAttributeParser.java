@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.unicauca.stcav.jmx;
+package org.university.stcav.pps.jmx;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,7 +34,7 @@ public class ManagementAttributeParser {
      public ManagementAttributeParser(){
         InputStream yml = null;
         try {
-            yml = new FileInputStream(new File(System.getProperty("user.dir")+"/mb_descriptor.yml"));
+            yml = new FileInputStream(new File(System.getProperty("user.dir")+"/mb_descriptor_pps.yml"));
             Yaml yaml = new Yaml();
             descriptor = (Map<String, String>) yaml.load(yml);
         } catch (FileNotFoundException ex) {

@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.unicauca.stcav.jmx.ManagementAttributeParser;
+import org.university.stcav.pps.jmx.ManagementAttributeParser;
 import org.unicauca.stcav.jmx.mbean.MBeanServerController;
 import org.unicauca.stcav.jmx.model.TimeOfLife;
 import org.university.stcav.model.Layout;
